@@ -1,0 +1,155 @@
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    workload.openshift.io/allowed: "management"
+  name: "open-cluster-management-agent"
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: klusterlet
+  namespace: "open-cluster-management-agent"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "bootstrap-hub-kubeconfig"
+  namespace: "open-cluster-management-agent"
+type: Opaque
+data:
+  kubeconfig: "YXBpVmVyc2lvbjogdjEKY2x1c3RlcnM6Ci0gY2x1c3RlcjoKICAgIGNlcnRpZmljYXRlLWF1dGhvcml0eS1kYXRhOiBMUzB0TFMxQ1JVZEpUaUJEUlZKVVNVWkpRMEZVUlMwdExTMHRDazFKU1VVelZFTkRRVEJYWjBGM1NVSkJaMGxDUTJwQlRrSm5hM0ZvYTJsSE9YY3dRa0ZSYzBaQlJFSklUVkpSZDBWbldVUldVVkZMUlhkMFJsZEZSazRLVlVWNFJreHJUbEJVVkVWMlRVTXdSMEV4VlVWQmVFMXRWVzFXYTBsRmFHaGtRMEpWWTIxR2NHSnRiSFZhZVVKRVdsaEtNR0ZYV25CWk1rWXdXbE5DUWdwa1dGSnZZak5LY0dSSWEzZElhR05PVFdwRmQwNVVSWGROVkVWNFQwUlJlRmRvWTA1TmFsbDNUbFJGZDAxVVJYaFBSRkY0VjJwQk1VMVNVWGRGWjFsRUNsWlJVVXRFUVhSR1YwVkdUbFZGZUVaTWEwNVFWRlJGWkUxQ2MwZEJNVlZGUVhkM1ZWbFlRbkJNYlRscVkwUlJkVnBZYUdoaVdFSnpXbE0xYW1JeU1IY0taMmRGYVUxQk1FZERVM0ZIVTBsaU0wUlJSVUpCVVZWQlFUUkpRa1IzUVhkblowVkxRVzlKUWtGUlJGWTROMlppVFZCdlJHbDNSbGg1V25nME1pczRlUXBJU2k5dWVUZFBXak5aV2pCTVQycFdjRTFZWkd4T2REbE1NRmxRTHpoSlVucFlaazFZVG05M2IzQmlLMlYzTTJWclV6TjRZekkyWjB4a2R6VlJiR0pZQ2pOelRqUkZibXBSU1RWcFNFdHZiM293WTNad0swcDBhRkUyV0ZOMVNrNU1aV055ZFROTVNFTnhObmRxVlVRelpXdEZWRk0wVEVSMU16Sm1TVTR2UzFjS1pVNTBLMEo2VjJSamNVOUxXbHAzWTJKU1JuSXlaVGxaZVVSbU5TOVJOR0owUW1OUFYzQlJhSGxKU3pBMmVDOVJRMlJPVTJWbllURkdRbXhSZVhOamNnbzNaMjE1YVRkb05rUnBiRzVXZEhWMVluRkVZbVpOTnpSUlF6VnhaMlZhWW00NWJ6SnJaVWNyVUdKaVQyaFZiSGR5UTNGeE0waGFOemxFYkRkRE0wRXZDamd4V1RGc1Z6VlVhMnBxT1VKUGFEazFLemxHWlhVeE4wWkRObmxFVmxrNFoyc3lNMXAwUmxneGVIQjRTVnBVTlVwME5EVlZUR2hwTTBwbmFHdzFPRE1LUVdkTlFrRkJSMnBuWjBaclRVbEpRbGxFUVdaQ1owNVdTRk5OUlVkRVFWZG5RbE5FVkZaM1pWY3ZRbk15ZVc5bVdGVmpZMXBuWVVabFUxcDVXa1JCT1FwQ1oyZHlRbWRGUmtKUlkwSkJVVkY0VFVNNGQweFJXVWxMZDFsQ1FsRlZTRTFCUjBkSlYyZ3daRWhCTmt4NU9YQmpSMFYwV1RKRmRWcFlhR2hpV0VKekNscFROV3BpTWpCMldUSkZkbUl5VG5walJFRlBRbWRPVmtoUk9FSkJaamhGUWtGTlEwSlFRWGRJVVZsRVZsSXdiRUpDV1hkR1FWbEpTM2RaUWtKUlZVZ0tRWGRGUjBORGMwZEJVVlZHUW5kTlEwMUlXVWRCTVZWa1NIZFNkazFITUhkaE5rRjZiMFJIUjB3eWFEQmtTRUUyVEhrNWNHTkhSWFJaTWtWMVdsaG9hQXBpV0VKeldsTTFhbUl5TUhaaFdFSm9UREpPZVdKRE9VNVpXRTR3V2xoS1JGVnJkM1ZaYld4MWIycFRhMDFxUVhkTlVUUjNSRUZaUkZaUlVVdEVRVlp3Q21OSFJtcFpWRVZsVFVKM1IwRXhWVVZCZDNkV1VUSldlV1JIYkcxaFYwNW9aRWRWWjFGWVZqQmhSemw1WVZoU05VMUNNRWRCTVZWa1JHZFJWMEpDVW5ZS1pFUlNWWGg2VEdoaWN5OXVUMEpDYkZwNE1UWlhVbkZIVUdwQk5FSm5UbFpJVWtWRlRWUkJkbWRvVW1oalIydDFZakpPZDA1RE5XeGxSMFowWTBkNGJBcE1iVTUyWWxsSldFdHBOV2hqU0VKNlRHMDVhbU5FVVhWYVdHaG9ZbGhDYzFwVE5XcGlNakIzUkZGWlNrdHZXa2xvZG1OT1FWRkZURUpSUVVSblowZENDa0ZHU0c5cFprTjVaRzQxTVhrck9UbFNVRlppTm1oWVZubzBObFZvU1c1T2VVZDRRa2czZGtSd01tTkVUbTVPWkdsamFqQkZlVmxFWTBaRVZVcExXV2NLT1daa2NVTTVha1pqZVhKaldWYzVNbmxoUTNBeVNsQllSRGRoUkRKUFVHaHliRTlzYTJGTlJWVXlTbTEzSzJKaFdIcE5UV1I2ZVZWdGVrSjFTRmx1V0FwMWRYcDZPVkpCWkdSelNYaFpXQ3RyT1hjNVNHaDJaa0Z6VmpReFZVUlhjbHBUV0RNNVlTOHlOemRZYm14M2RtUnZSbWwxTVZWRlluZzJiRTR2ZW1WNkNrNXVZblpsUlZZclRHOXdjemxCZVdaaFRIbElNbkpYYjI1dVFVSTFSRFF6YmpaeU9GaFlSR1ZZUWxGUVRHb3liRkJJZGs5UEsweHNOVWRPYTBsM1QyMEtRMkpLYWk5eE9XWlZkbFprTlROVVJYRnhUMHhNZWtsU05HOUtObFExWjA0d1VGUm9Zek4zUVdGS1lsSlpaa3RQUTFwck5USjJiRWRIVlZGeGFsYzNUQXBLTUdSR1dWSjZNazAwVkZwbllrRnlObmRZTTJORlRTdDZVbnBNZGpkUmRFNUZRWEo2TUZnelNYTm5SSE5DT1dkQlpUSkdTa2h2TUdjM1drVkRUVUp0Q2tGSFRUVk5WamhzYlhGME5XTlRaVVEzYXpGVmRVVmpPWGczTkROMFoxRTNlSFZxYUUxTlRuQlNMMlJDWkVKSmFrdHRZM2x5YW5KUVN6WmxRMkZqUkhZS1RHTXlWMnBVVTNkblpXcG5kemRSZEZkeFVDczFUV3hWVEVaeWFYSnJhak5rYTJnNVowSXJOVTlaVjNSV2FrbDRaR2x2WTBFMlRVeHVUVzU2WXprM1R3cFRVVDA5Q2kwdExTMHRSVTVFSUVORlVsUkpSa2xEUVZSRkxTMHRMUzBLTFMwdExTMUNSVWRKVGlCRFJWSlVTVVpKUTBGVVJTMHRMUzB0Q2sxSlNVVk9WRU5EUVhneVowRjNTVUpCWjBsVlptUkROM3BtYURRMGNUbFhTMW80VERCeVozTmlZbXRZWkZVd2QwUlJXVXBMYjFwSmFIWmpUa0ZSUlV3S1FsRkJkMmRaT0hoRGVrRktRbWRPVmtKQldWUkJiRlpVVFZKamQwWlJXVVJXVVZGSlJFRTFUMkl6U2pCaFEwSkVXVmhLZG1KSGJIVlpWRVZSVFVFMFJ3cEJNVlZGUW5kM1NGVnRSbk5hVjJ4dVlVUkZVVTFCTkVkQk1WVkZRMmQzU0ZWdFZtdEpSV2hvWkVSRldrMUNZMGRCTVZWRlEzZDNVVlZ0Vm10SlJXaG9DbVJEUWxWamJVWndZbTFzZFZwNlJXOU5RMWxIUVRGVlJVRjNkMlpWYlZaclNVVm9hR1JEUWxWamJVWndZbTFzZFZwNVFsVmpibFo2WkVOQ1ZGcFlTaklLWVZkT2JHTjZRV1ZHZHpCNVRWUkJNVTFFVlhoT2FrMHdUV3BLWVVaM01IcE5WRUV4VFVSTmVFNXFUVEJOYWtwaFRVVmplRVpFUVZOQ1owNVdRa0Z2VkFwRE1GWlpVVlV4VVZSRlZYVlJNRGxPVFZNNGQweFJXVVJXVVZGRVJYbGFVMXBYVVdkVFIwWXdTVVpTZVZsWGJIVmhWelZ1U1VWT2JHTnVVbkJhYld4cUNsbFlVbXhKUlVZeFpFZG9kbU50YkRCbFZFTkRRV0ZKZDBSUldVcExiMXBKYUhaalRrRlJSVUpDVVVGRVoyZEhVRUZFUTBOQldXOURaMmRIUWtGS1pITUtZa2hFYTFBM1NHZGhZVzlwV2xKVFZHdG5lVWhQYmxKUVRuTktTeTgyT0RGUFNWbGFNVFUxUkVGNU9HNTRlRmgxUjFSc1prdHlNSE5oUTFONGVrMW9VZ3BwV0V4WFlWaE5SVWQ2YVhveVowbDZUaTlLUjB4dFVXaG5XR3hhT1hGS05sWkxlbnB3Wm1wS2FVYzBZMHRyWVhKWGVVMVNNa2hLU1RCNVdrbzRiMnhOQ2pWSEszQmlNVEJQV1VKc2IxWXplVWczTDFwd1RuVkhZMWhUWVRoek5YaHhlRTFMYzNwNWRXWnFLMjU1UkhwT1lsRm9VMFZFVjNGSFZtdHlNMk5OTW1JS1NHeEViRVphTlVNd1NFcHZSMWRYZGxkR1kwVklXWHA1YzFkTlRVUTBaMU5qTlZSTmNqSTRUbHBYVFhScVQwTm9jbHBMUVdoblNFUjVjMVZKT0ZOcWJncExlVTlIU0dST1ozbDFWWHBYZDFCdmMzRkdOSGxuUkVRM2RuZHpPVlpOVFU5UmMyOXJXalpRV2twSmJ6QTNSRnBUWkZaMlZVSmxVemhtYjBaSE5XZGlDbFkxVmt0bVNXWnRTRlZKVURGWEsyTnlaRlk1Vm1aSGNYaENiemM1YzJSVWVrdEhSSEZITnpsVVNWWnFSMFZZUlRkNE9WVnBkRGh2WXpjNU1teHJWVThLVWtKQlUwaFFSbTl1V1U0NVJFMVNVWEJZUW01b09UWXlhME5YUVRaTVpreERkVTE2YTBKMlQyUTNURlZzZVdsUlJqaHlRVVJRVjJGa1RuTlNTVFpMZWdweFpXSkVibWhrYlZoRVNtZERlVzV6VGs1ME5pOXFRMUowVTFoUlZrMWlOWG81WW5WUGJHdFhVR0lyVGtSaEwyOUhkSFYyWjBKS1NGTlNhbTl4VVVsRUNrRlJRVUp2TVVGM1ZHcEJaRUpuVGxaSVVUUkZSbWRSVldjd01XTkliSFozWWs1emNVZ3hNVWhJUjFsSGFGaHJiV050VVhkSWQxbEVWbEl3YWtKQ1ozY0tSbTlCVlRkQ05UWndjVzU1UlZCa04zWmhjRXRyVUd4YVltWkpXbE5QYzNkRVFWbEVWbEl3VkVKQlZYZEJkMFZDTDNwQlRrSm5hM0ZvYTJsSE9YY3dRZ3BCVVhOR1FVRlBRMEZSUlVGQmNGRkdSekJrY0ZCa1lUVXhXR1ozY0ZCUWRWSlBLMnhoWm5SMVFuVmhSeXRyU0cxTlZWbHdWbXRDWjI1UFowaFJZek5WQ2poNGQzQnVTa05HWWxWUVRISlFTa2x4UmtSME1HUTJUVXQwVDJkTlMxbDVMMG8yTUdoYVVVc3JOVzB4VDJ4S2EyWjZOMmxDWWtSUWRVYzFjM28yZUc0S1UxRjVUemxCVDFJcmNFdzFTSEZaYTFGQlkwOUJlRE4xWW5aQ1J5dDVNbE0yV0RoRFl6RjZTRXAxTjNSMGIzVnNORlEzYlVKUVN6aFdaVmw2VEROVGR3cE9ZVmd4WjNKSVJraFpZblJWYTNZNU1tOWtUak0yT1hsRFQybEdZeXQwVUVkMmRESm5Obmt3YnpSU1dYVnViMjFYZG5SalNpdHJRa2N6YkhsR1ZTdFVDa05tWVRZd1V6bEhWMmRaWXpSVk16ZFNSVlZOVWt3M1ZXeFdjVlJ6UWtkdFFVWnRiMDUxZVZwNWFETlNaMGRXUlUxVFJIYzNWMGxaZUc1T1NYQmpOM2NLYUZsbFZuTjJhVTVKU0VFMmFYSnhkVlZYZVM5blJGVlVUQzk0YW1Zck5XbHBkejA5Q2kwdExTMHRSVTVFSUVORlVsUkpSa2xEUVZSRkxTMHRMUzBLTFMwdExTMUNSVWRKVGlCRFJWSlVTVVpKUTBGVVJTMHRMUzB0Q2sxSlNVVnVha05EUVRSaFowRjNTVUpCWjBsS1FVeDJVVzk2Y1RWcFZtd3JUVUV3UjBOVGNVZFRTV0l6UkZGRlFrTjNWVUZOU1VkUVRWRnpkME5SV1VRS1ZsRlJSMFYzU2xaVmVrVllUVUpWUjBFeFZVVkRRWGRQVkcwNWVXUkhaMmRSTWtaNVlqSjRjR0p0UlhoRlJFRlBRbWRPVmtKQlkwMUNNVXBvWWtkV2NBcGFNbWQ0UlVSQlQwSm5UbFpDUVc5TlFqRktiRnBEUWtsWldGRjRSMVJCV0VKblRsWkNRWE5OUlVaS2JGcERRa2xaV0ZGblZraEthR0ZYTlhCaWJXTjRDa3RFUVcxQ1owNVdRa0ZOVFVneFNteGFRMEpKV1ZoUloxWklTbWhoVnpWd1ltMWpaMVpJU2pGak0xRm5WVEpXZVdSdGJHcGFXRTEzU0doalRrMXFSWGNLVGxSQk1VMVVXWGhOVkVrMVYyaGpUazE2UlhkT1ZFRjZUVlJaZUUxVVNUVlhha05DYW5wRlRFMUJhMGRCTVZWRlFtaE5RMVpXVFhoR2VrRldRbWRPVmdwQ1FXZE5SR3MxZG1OdVVtOUpSVTVvWTIwNWMyRlhOV2hOVWtGM1JHZFpSRlpSVVVoRVFXUlRXVmQ0YkdGWFpHOU5Va0YzUkdkWlJGWlJVVXRFUVdSVENscFhVV2RUUjBZd1RWSnJkMFozV1VSV1VWRk1SRUpDVTFwWFVXZFRSMFl3U1VaU2VWbFhiSFZoVnpWdVRWTm5kMHBuV1VSV1VWRkVSRUk1VTFwWFVXY0tVMGRHTUVsR1VubFpWMngxWVZjMWJrbEdVbmxrV0U0d1NVWk9iR051V25CWk1sWjZUVWxKUWtscVFVNUNaMnR4YUd0cFJ6bDNNRUpCVVVWR1FVRlBRd3BCVVRoQlRVbEpRa05uUzBOQlVVVkJlVVprUjBKelRXazNSRk5aWVRNek5uaFJOazV5VUdKQ1RreDBWbUZvZDFwMldHbzJNMk5VY0ZSblNVSXhSekp0Q2xOamJ6UmpVR1U1WVZkVVYwUkZZVlpwVkU5MU1HNDJlV2h2YTBObE1FbG5lVkJVYUVKQ1F6UlVLMjlsY2xCVWIwZGhkekpqUzBOd05FODVjbFV3VHlzS2JrZFpXblE0Y0VsMlYzbFpSR2hwTUVNeGRHZ3hUVkpKYjJkQmFXVlhiVzlLTVRaNVYyYzFWWE5OWkdnM1IxRjJWRUZ0TjFoeE0yaHNRMmMzWjNnelRRcFBiMFZOUzFSNFdsVjRVelpWT1hKUlNFMHhSVlZvSzFSeVpXUmtRbE5CUkVJd2JWbEhkMjVSUkd4elIxbHhkMjlDZEdFM1JVdEVjVFZ3ZDJjNFJVSjNDbmRvVjBGdVVXdHhkSFZJYkV4SmVHTkZRbEZWYXpoRVpsWm9XRFF6U1VOck5IRnVaa05hZGxFdmRsQjJVRk5OTm5WSlIwSkZNWFZLZEhkRWFrOTNkVXdLWVU5MGVrTXpiMUoxY205eE1ERllZV0UzYUZkT2NGSkdVRzVpZFc4NGJYSTBkbkpOWTFGSlJFRlJRVUp2TkVnMlRVbElNMDFCT0VkQk1WVmtSWGRGUWdvdmQxRkdUVUZOUWtGbU9IZElVVmxFVmxJd1QwSkNXVVZHVDNkbFpYRmhjRGhvUkRObE56SnhVM0JFTlZkWE0zbEhWV3B5VFVsSVJVSm5UbFpJVTAxRkNtZGlkM2RuWW0xQlJrOTNaV1Z4WVhBNGFFUXpaVGN5Y1ZOd1JEVlhWek41UjFWcWNtOVpSMVp3U1VkVFRVbEhVRTFSYzNkRFVWbEVWbEZSUjBWM1NsWUtWWHBGV0UxQ1ZVZEJNVlZGUTBGM1QxUnRPWGxrUjJkblVUSkdlV0l5ZUhCaWJVVjRSVVJCVDBKblRsWkNRV05OUWpGS2FHSkhWbkJhTW1kNFJVUkJUd3BDWjA1V1FrRnZUVUl4U214YVEwSkpXVmhSZUVkVVFWaENaMDVXUWtGelRVVkdTbXhhUTBKSldWaFJaMVpJU21oaFZ6VndZbTFqZUV0RVFXMUNaMDVXQ2tKQlRVMUlNVXBzV2tOQ1NWbFlVV2RXU0Vwb1lWYzFjR0p0WTJkV1NFb3hZek5SWjFVeVZubGtiV3hxV2xoUFEwTlJRemN3UzAwMmRWbHNXbVpxUVU0S1FtZHJjV2hyYVVjNWR6QkNRVkZ6UmtGQlQwTkJVVVZCV0ZkVGN6aExNVUYwV0RGMFNpdENURlZEU1VveEswMWFabVpOWkVWTmRHOVVkM1pKYmtaaGNncHJlbkZPUzFWWmRGZFdSMmRzUWpoNlQxbEJlSGMwVW5KTFUxQkpXbUV5TkdWcWMwOTNPVzhyTWxWd1VIWTFaeXRaVjFKS1FYSTRNaXRoWTFwV1VIUkRDbXhKZHpkc1IydGtNRXhsUmk5R2MyNWhiamRPZFdWV09VUkNTSEpOVFhwNmVHVkxNQ3RsVTJoSkwwZDRjSFp6WnpaRGNGbHJTelI1T1VabFowVjBhMFFLU0hkbFpGTkdOMnhaWmk5MVdFODBkR2R6U0hGa2REVnBWbmczYkRGcVJWRjBVbnBMVFd4VGRYcDFOMWsyWWpGeU5XTklhazFaZFROcmNYWjRORWRrVndwRlRrRktZWEJ2UzBsYVdUYzViV1pPV205VE4zZDJiVFJ4TjJkYVZUWnBSbWcwVVZBM1VtcExOR0ZQVFZCVlEweEJZVEZFYkd0UlRYTlBNRkUxWjJKcENtSlhRbXN2UmtoWFlVb3ZiRmQ0ZGpCeVNVaDJOWFJTVVRCWlVGcHFNMDFLWlhsdGVWUjJkM1ZzZDNsdVJGRTlQUW90TFMwdExVVk9SQ0JEUlZKVVNVWkpRMEZVUlMwdExTMHRDZz09CiAgICBzZXJ2ZXI6IGh0dHBzOi8vYXBpLm9jcDQuZXhhbXBsZS5jb206NjQ0MwogIG5hbWU6IGRlZmF1bHQtY2x1c3Rlcgpjb250ZXh0czoKLSBjb250ZXh0OgogICAgY2x1c3RlcjogZGVmYXVsdC1jbHVzdGVyCiAgICBuYW1lc3BhY2U6IGRlZmF1bHQKICAgIHVzZXI6IGRlZmF1bHQtYXV0aAogIG5hbWU6IGRlZmF1bHQtY29udGV4dApjdXJyZW50LWNvbnRleHQ6IGRlZmF1bHQtY29udGV4dApraW5kOiBDb25maWcKcHJlZmVyZW5jZXM6IHt9CnVzZXJzOgotIG5hbWU6IGRlZmF1bHQtYXV0aAogIHVzZXI6CiAgICB0b2tlbjogZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNklrWmxlazlYUVVsQmQwdENNRXM0VVhweVVVVkRNMWxMVEZNMFNVTkdkVTk2TjNSTFgwbHZSalJNYUhjaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUp0WVc1aFoyVmtMV05zZFhOMFpYSWlMQ0pyZFdKbGNtNWxkR1Z6TG1sdkwzTmxjblpwWTJWaFkyTnZkVzUwTDNObFkzSmxkQzV1WVcxbElqb2liV0Z1WVdkbFpDMWpiSFZ6ZEdWeUxXSnZiM1J6ZEhKaGNDMXpZUzEwYjJ0bGJpMXpjSEkzYkNJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExtNWhiV1VpT2lKdFlXNWhaMlZrTFdOc2RYTjBaWEl0WW05dmRITjBjbUZ3TFhOaElpd2lhM1ZpWlhKdVpYUmxjeTVwYnk5elpYSjJhV05sWVdOamIzVnVkQzl6WlhKMmFXTmxMV0ZqWTI5MWJuUXVkV2xrSWpvaU1EZGhNR1V4T1RZdFlqWTJZUzAwTnpobExUZ3pPR0V0TjJSaFlqRTNPR0kwTnpOaklpd2ljM1ZpSWpvaWMzbHpkR1Z0T25ObGNuWnBZMlZoWTJOdmRXNTBPbTFoYm1GblpXUXRZMngxYzNSbGNqcHRZVzVoWjJWa0xXTnNkWE4wWlhJdFltOXZkSE4wY21Gd0xYTmhJbjAucmppOHB4OHVPdGpKQUd2QkJQYzE4eE5QM3lYRnhTMDA3QjBWbE42clJLMlYwYWgtMTFCWXZWN1hUN1puc0dYelcwejlVYlpiYlVyYkFXTWhKb2NSZWJVU2xobVZmQllRQW1tZjRyRk1OMUowTXc4c1BzWnpzdmZIVkxyZzJkVDI5MlEwVXY2UGFrbnFNd2NDcUw1Q0VIYU1lUl9WRFRrWWpJYWxpM1dhZEJiZjNWaFpSdWdzUDlSSTBRSGFqLXlHNmZHLUxnM0xkdWlQR2R6TV9qR0ZkRERqeXZLeXUyZjhYVHlzMm5IMlprZWZYYzNRSDM1OWgwV0lIYmV0WXV4V3RuWnpCdzlTVGtFS3NqY0NUMWpORW9nZXJ2RVd2NWh0RlRSMU5FYlc0VlR2Y1hXLXVMZ2VUOWU0QlIxcWF4N2hoQlJqUllDQ3pIVzNNd1VySkdCTC1scHFQU3JDV3FxTVBPSWhvRjkxb3FtRW5vNzd3c1ktM081NnBIZHpLMUxpVlpOT2hqS0drZjNPX3g5VUk3RzdQRmNGbVYyYTlSdWVyU3U2ZkFoX0RjVzl6a25TamhMYlh1ZHQ0SHVwSE1tTnRleFJHZGpMWHlUbjlidzUyOTdvYXRfYkFZX1JPYmZYU3NZLU9OZ0U2MTAyWm8yU25WVjd6bkhHb3prTWZxd2pzUllTaGpxRWNoMEN2MUlCaExpUEUtSFZWczlTU0VyRGN5YTFSdUNWY0JYSkhyTlJNNEpDYjJ3NHZ2Q1ktaUZSTGcxSWkwTndtcUpGZU8wb1BCSHNoSXU0RGhRcFF4TUJNcFRybWwwSE9yVW1kSlZXREM3Yi1lX2c1X2lZNTRJNUQ3SmdBT0NkSE80aVZNSFRHcG5PaWdNakhKWDBzQmF1djlrMTdPTzhaWUkK"
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: klusterlet
+rules:
+- apiGroups: [""]
+  resources: ["secrets", "configmaps", "serviceaccounts"]
+  verbs: ["create", "get", "list", "update", "watch", "patch", "delete"]
+- apiGroups: ["authorization.k8s.io"]
+  resources: ["subjectaccessreviews"]
+  verbs: ["create"]
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["create", "get", "list", "watch","delete"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["", "events.k8s.io"]
+  resources: ["events"]
+  verbs: ["create", "patch", "update"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["create", "get", "list", "update", "watch", "patch", "delete"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["clusterrolebindings", "rolebindings"]
+  verbs: ["create", "get", "list", "update", "watch", "patch", "delete"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["clusterroles", "roles"]
+  verbs: ["create", "get", "list", "update", "watch", "patch", "delete", "escalate", "bind"]
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  verbs: ["create", "get", "list", "update", "watch", "patch", "delete"]
+- apiGroups: ["operator.open-cluster-management.io"]
+  resources: ["klusterlets"]
+  verbs: ["get", "list", "watch", "update", "patch", "delete"]
+- apiGroups: ["operator.open-cluster-management.io"]
+  resources: ["klusterlets/status"]
+  verbs: ["update", "patch"]
+- apiGroups: ["work.open-cluster-management.io"]
+  resources: ["appliedmanifestworks"]
+  verbs: ["list", "update", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: open-cluster-management:klusterlet-admin-aggregate-clusterrole
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+rules:
+- apiGroups: ["operator.open-cluster-management.io"]
+  resources: ["klusterlets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: klusterlet
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: klusterlet
+subjects:
+- kind: ServiceAccount
+  name: klusterlet
+  namespace: "open-cluster-management-agent"
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: klusterlet
+  namespace: "open-cluster-management-agent"
+  labels:
+    app: klusterlet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: klusterlet
+  template:
+    metadata:
+      annotations:
+        target.workload.openshift.io/management: '{"effect": "PreferredDuringScheduling"}'
+      labels:
+        app: klusterlet
+    spec:
+      serviceAccountName: klusterlet
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/infra
+          operator: Exists
+      containers:
+      - name: klusterlet
+        image: registry.redhat.io/rhacm2/registration-rhel8-operator@sha256:568d3b5dc4da1dd35c68d1405c274933d6129462b5873e929e25a444c50f1d6b
+        imagePullPolicy: IfNotPresent
+        args:
+          - "/registration-operator"
+          - "klusterlet"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            scheme: HTTPS
+            port: 8443
+          initialDelaySeconds: 2
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            scheme: HTTPS
+            port: 8443
+          initialDelaySeconds: 2
+
+---
+apiVersion: operator.open-cluster-management.io/v1
+kind: Klusterlet
+metadata:
+  name: klusterlet
+spec:
+  registrationImagePullSpec: "registry.redhat.io/rhacm2/registration-rhel8@sha256:574b41e19bf26043f985fcfac8e8cd9384f1b37aba4d4eb3be3901ae6a427081"
+  workImagePullSpec: "registry.redhat.io/rhacm2/work-rhel8@sha256:b5c1519fda361b17f90ce895de2587d0b95692660fb79988ca2f21f71267ebe1"
+  clusterName: "managed-cluster"
+  namespace: "open-cluster-management-agent"
+  nodePlacement:
+    tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/infra
+      operator: Exists

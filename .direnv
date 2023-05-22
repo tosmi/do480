@@ -1,0 +1,5 @@
+# User specific aliases and functions
+alias hub='oc login -u admin -p redhat https://api.ocp4.example.com:6443'
+alias mgmt='oc login -u admin -p redhat https://api.ocp4-mng.example.com:6443'
+
+source <(oc completion bash)
