@@ -1,0 +1,62 @@
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: app-prod
+spec: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prod-hello
+  labels:
+    app: prod-hello
+    name: prod-hello
+  namespace: app-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prod-hello
+      name: prod-hello
+  template:
+    metadata:
+      labels:
+        app: prod-hello
+        name: prod-hello
+    spec:
+      containers:
+      - name: prod-hello
+        image: quay.io/redhattraining/do480-hello-app:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prod-hello
+    name: prod-hello
+  name: prod-hello
+  namespace: app-prod
+spec:
+  ports:
+  - port: 8080
+  selector:
+    name: prod-hello
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: prod-hello
+  labels:
+    app: prod-hello
+    name: prod-hello
+  namespace: app-prod
+spec:
+  host: prod-hello.apps.ocp4-mng.example.com
+  subdomain: ''
+  to:
+    kind: Service
+    name: prod-hello
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None

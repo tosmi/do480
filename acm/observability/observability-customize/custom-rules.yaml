@@ -1,0 +1,19 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: thanos-ruler-custom-rules
+data:
+  custom_rules.yaml: |
+    groups:
+      - name: cluster-health
+        rules:
+        - alert: ClusterCPUReq-60
+          annotations:
+            summary: Notify when CPU requests on a cluster are greater than the defined utilization limit
+            description: "The cluster {{ $labels.cluster }} has an elevated percentage of CPU requests: {{ $labels.clusterID }}."
+          expr: |
+            sum(namespace_cpu:kube_pod_container_resource_requests:sum) by (clusterID, cluster) / sum(kube_node_status_allocatable{resource="cpu"}) by (clusterID, cluster) > 0.6
+          for: 5s
+          labels:
+            cluster: "{{ $labels.cluster }}"
+            severity: critical

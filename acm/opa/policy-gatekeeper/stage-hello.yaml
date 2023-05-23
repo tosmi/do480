@@ -1,0 +1,62 @@
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  name: app-stage
+spec: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stage-hello
+  labels:
+    app: stage-hello
+    name: stage-hello
+  namespace: app-stage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stage-hello
+      name: stage-hello
+  template:
+    metadata:
+      labels:
+        app: stage-hello
+        name: stage-hello
+    spec:
+      containers:
+      - name: stage-hello
+        image: quay.io/redhattraining/do480-hello-app:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: stage-hello
+    name: stage-hello
+  name: stage-hello
+  namespace: app-stage
+spec:
+  ports:
+  - port: 8080
+  selector:
+    name: stage-hello
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: stage-hello
+  labels:
+    app: stage-hello
+    name: stage-hello
+  namespace: app-stage
+spec:
+  host: stage-hello.apps.ocp4.example.com
+  subdomain: ''
+  to:
+    kind: Service
+    name: stage-hello
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
