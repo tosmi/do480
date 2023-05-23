@@ -1,0 +1,22 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  annotations:
+    open-cluster-management.io/user-group: YWRtaW5zLHRydXN0IGFkbWlucyxzeXN0ZW06YXV0aGVudGljYXRlZDpvYXV0aCxzeXN0ZW06YXV0aGVudGljYXRlZA==
+    open-cluster-management.io/user-identity: YWRtaW4=
+  creationTimestamp: "2023-05-23T10:11:22Z"
+  generation: 1
+  labels:
+    app: mysql
+  name: mysql-placement-1
+  namespace: mysql
+  resourceVersion: "3065677"
+  uid: 6d88c301-b0a8-45b0-bb02-4c08ff9bac52
+spec:
+  clusterSelector:
+    matchLabels:
+      local-cluster: "true"
+status:
+  decisions:
+  - clusterName: local-cluster
+    clusterNamespace: local-cluster

@@ -1,0 +1,16 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: medium
+    open-cluster-management.io/user-group: YWRtaW5zLHRydXN0IGFkbWlucyxzeXN0ZW06YXV0aGVudGljYXRlZDpvYXV0aCxzeXN0ZW06YXV0aGVudGljYXRlZA==
+    open-cluster-management.io/user-identity: YWRtaW4=
+  creationTimestamp: "2023-05-23T10:11:22Z"
+  generation: 1
+  name: ggithubcom-tosmi-do480-apps
+  namespace: ggithubcom-tosmi-do480-apps-ns
+  resourceVersion: "3065661"
+  uid: a7d9747e-eb65-45de-8c2c-65f47c0306d4
+spec:
+  pathname: https://github.com/tosmi/DO480-apps.git
+  type: Git

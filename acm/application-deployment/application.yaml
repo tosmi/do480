@@ -1,0 +1,25 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  annotations:
+    apps.open-cluster-management.io/deployables: ""
+    apps.open-cluster-management.io/subscriptions: mysql/mysql-subscription-1,mysql/mysql-subscription-1-local
+    open-cluster-management.io/user-group: c3lzdGVtOnNlcnZpY2VhY2NvdW50cyxzeXN0ZW06c2VydmljZWFjY291bnRzOm9wZW4tY2x1c3Rlci1tYW5hZ2VtZW50LHN5c3RlbTphdXRoZW50aWNhdGVk
+    open-cluster-management.io/user-identity: c3lzdGVtOnNlcnZpY2VhY2NvdW50Om9wZW4tY2x1c3Rlci1tYW5hZ2VtZW50Om11bHRpY2x1c3Rlci1vcGVyYXRvcnM=
+  creationTimestamp: "2023-05-23T10:11:22Z"
+  generation: 1
+  name: mysql
+  namespace: mysql
+  resourceVersion: "3066054"
+  uid: a47afc01-397e-43f6-b331-d4f7efd7453b
+spec:
+  componentKinds:
+  - group: apps.open-cluster-management.io
+    kind: Subscription
+  descriptor: {}
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - mysql
