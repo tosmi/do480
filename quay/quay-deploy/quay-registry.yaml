@@ -1,0 +1,14 @@
+apiVersion: quay.redhat.com/v1
+kind: QuayRegistry
+metadata:
+  name: central
+  namespace: registry
+spec:
+  configBundleSecret: init-config-bundle-secret
+  components:
+    - kind: clair
+      managed: false
+    - kind: horizontalpodautoscaler
+      managed: false
+    - kind: mirror
+      managed: false

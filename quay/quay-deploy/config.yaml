@@ -1,0 +1,22 @@
+AUTHENTICATION_TYPE: LDAP
+FEATURE_USER_INITIALIZE: true
+BROWSER_API_CALLS_XHR_ONLY: false
+SUPER_USERS:
+- cloudadmin
+FEATURE_USER_CREATION: true
+LDAP_ADMIN_DN: uid=admin,cn=users,cn=accounts,dc=ocp4,dc=example,dc=com
+LDAP_ADMIN_PASSWD: Redhat123@!
+LDAP_ALLOW_INSECURE_FALLBACK: false
+LDAP_BASE_DN:
+    - cn=accounts
+    - dc=ocp4
+    - dc=example
+    - dc=com
+LDAP_EMAIL_ATTR: mail
+LDAP_UID_ATTR: uid
+LDAP_URI: ldaps://idm.ocp4.example.com
+LDAP_USER_RDN:
+    - cn=users
+FEATURE_TEAM_SYNCING: true
+TEAM_RESYNC_STALE_TIME: 60m
+FEATURE_NONSUPERUSER_TEAM_SYNCING_SETUP: true
