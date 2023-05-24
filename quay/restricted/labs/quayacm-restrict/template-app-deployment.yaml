@@ -1,0 +1,83 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+labels:
+  app: ${APPLICATION}
+  template: mysql-persistent-template
+metadata:
+  annotations:
+    openshift.io/display-name: Application for persistence of an application
+  name: ${APPLICATION}-template
+
+objects:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ${DATABASE_SERVICE_NAME}-${APPLICATION}
+  spec:
+    replicas: "${{REPLICAS}}"
+    selector:
+      matchLabels:
+        app: ${DATABASE_SERVICE_NAME}-${APPLICATION}
+    template:
+      metadata:
+        labels:
+          app: ${DATABASE_SERVICE_NAME}-${APPLICATION}
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: r00tpa55
+          - name: MYSQL_USER
+            value: user1
+          - name: MYSQL_PASSWORD
+            value: mypa55
+          - name: MYSQL_DATABASE
+            value: items
+          name: mysql
+          image: ${MYSQL_IMAGE}
+          ports:
+          - containerPort: 3306
+            name: mysql
+          imagePullPolicy: Always
+          volumeMounts:
+          #- mountPath: /var/lib/mysql/data
+          - mountPath: /var/lib/mysql
+            name: db-volume
+        volumes:
+        - emptyDir:
+            medium: ""
+          name: db-volume
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      name: ${DATABASE_SERVICE_NAME}-${APPLICATION}
+    name: ${DATABASE_SERVICE_NAME}-${APPLICATION}
+  spec:
+    ports:
+    - port: 3306
+    selector:
+      app: ${DATABASE_SERVICE_NAME}-${APPLICATION}
+
+parameters:
+- description: MySQL image
+  displayName: MySQL image
+  name: MYSQL_IMAGE
+  required: true
+  value: central-quay-registry.apps.ocp4.example.com/public/mysql:8.0
+- description: Company application
+  displayName: Application
+  name: APPLICATION
+  required: true
+  value: "finance-application"
+- description: Number of replicas
+  displayName: Number of replicas
+  name: REPLICAS
+  required: true
+  value: "1"
+- description: The name of the OpenShift Service exposed for the database.
+  displayName: Database Service Name
+  name: DATABASE_SERVICE_NAME
+  required: true
+  value: mysql

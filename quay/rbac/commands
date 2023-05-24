@@ -1,0 +1,6 @@
+podman build . -t budget-app:development
+podman login -u=bob -p=r6IpfXs5090d6UMT2IHJw7JbJoaaypuEByvJFkjdQfY7wMxN0/CBhQnCAIdQZxeB central-quay-registry.apps.ocp4.example.com
+podman push localhost/budget-app:development central-quay-registry.apps.ocp4.example.com/finance/budget-app-dev
+podman push localhost/budget-app:development central-quay-registry.apps.ocp4.example.com/finance/budget-app
+skopeo login -u=alice -p=redhat central-quay-registry.apps.ocp4.example.com
+skopeo copy docker://central-quay-registry.apps.ocp4.example.com/finance/budget-app-dev docker://central-quay-registry.apps.ocp4.example.com/finance/budget-app

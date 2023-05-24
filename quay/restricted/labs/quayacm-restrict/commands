@@ -1,0 +1,2 @@
+oc process -f template-app-deployment.yaml -p "APPLICATION=invoices-app" -p "MYSQL_IMAGE=central-quay-registry.apps.ocp4.example.com/finance/approved-mysql:8.0" | oc create -n invoices-app -f -
+oc process -f template-app-deployment.yaml -p "APPLICATION=invoices-app" | oc create -n invoices-app -f -
