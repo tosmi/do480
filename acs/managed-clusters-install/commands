@@ -1,0 +1,10 @@
+  646  podman login -u=cloudadmin -p=redhat central-quay-registry.apps.ocp4.example.com
+  647  skopeo copy docker://quay.io/redhattraining/do480-hello-app docker://central-quay-registry.apps.ocp4.example.com/finance/do480-hello-app
+  648  vi Containerfile
+  649  podman build . -t hello-quay
+  650  podman push localhost/hello-quay central-quay-registry.apps.ocp4.example.com/finance/hello-quay
+  651  oc login -u admin -p redhat https://api.ocp4.example.com:6443
+  652  oc new-project operate-integrate
+  653  cat /run/user/1000/containers/auth.json 
+  654  oc create secret generic quaysecret --from-file=.dockerconfigjson=/run/user/1000/containers/auth.json --type=kubernetes.io/dockerconfigjson -n operate-integrate
+  655  oc secrets link default quaysecret --for=pull -n operate-integrate
