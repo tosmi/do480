@@ -6,5 +6,7 @@
   651  oc login -u admin -p redhat https://api.ocp4.example.com:6443
   652  oc new-project operate-integrate
   653  cat /run/user/1000/containers/auth.json 
+
+  # secret is required so that the deployment can pull images from quay
   654  oc create secret generic quaysecret --from-file=.dockerconfigjson=/run/user/1000/containers/auth.json --type=kubernetes.io/dockerconfigjson -n operate-integrate
   655  oc secrets link default quaysecret --for=pull -n operate-integrate
